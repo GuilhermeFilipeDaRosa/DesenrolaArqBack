@@ -27,8 +27,16 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>25</java.version>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -78,7 +86,14 @@
 			<artifactId>google-genai</artifactId>
 			<version>1.72.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.auties00</groupId>
+			<artifactId>cobalt</artifactId>
+			<version>c2392d9af6</version>
+		</dependency>
 	</dependencies>
+
+
 
 	<build>
 		<plugins>

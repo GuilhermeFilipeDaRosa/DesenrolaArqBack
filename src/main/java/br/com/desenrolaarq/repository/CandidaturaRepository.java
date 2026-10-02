@@ -5,10 +5,14 @@ import br.com.desenrolaarq.dto.UltimaAnaliseDTO;
 import br.com.desenrolaarq.entity.Candidatura;
 import br.com.desenrolaarq.entity.Candidato;
 import br.com.desenrolaarq.entity.Vaga;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CandidaturaRepository extends JpaRepository<Candidatura, Long> {
 
@@ -53,4 +57,19 @@ public interface CandidaturaRepository extends JpaRepository<Candidatura, Long> 
         ORDER BY c.dataCandidatura DESC
     """)
     List<UltimaAnaliseDTO> buscarUltimasAnalises();
+
+    @Query("""
+        SELECT c
+        FROM Candidatura c
+        JOIN FETCH c.candidato candidato
+        JOIN FETCH c.vaga vaga
+        WHERE (:nome = '' OR LOWER(candidato.nome) LIKE LOWER(CONCAT('%', :nome, '%')))
+          AND (:vagaId IS NULL OR vaga.id = :vagaId)
+        """)
+    Page<Candidatura> buscarCandidatos(
+            @Param("nome") String nome,
+            @Param("vagaId") Long vagaId,
+            Pageable pageable
+    );
+
 }

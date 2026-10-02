@@ -65,15 +65,16 @@ public class CurriculoService {
 
         String texto = pdfService.extrairTexto(caminhoArquivo);
         Candidato candidato = candidatoExtractorService.extrair(texto);
+
+        candidato.setCurriculo(nomeArquivo);
+
         Candidato candidatoSalvo = candidatoService.encontrarOuCriar(candidato);
         Candidatura candidatura = candidaturaService.criar(candidatoSalvo, vaga);
 
         try {
-            String resultadoJson =
-                    analiseIaService.analisar(vaga, texto);
+            String resultadoJson = analiseIaService.analisar(vaga, texto);
 
-            AnaliseIaResponse resultado =
-                    analiseIaService.converterResultado(resultadoJson);
+            AnaliseIaResponse resultado = analiseIaService.converterResultado(resultadoJson);
 
             candidaturaService.atualizarAnaliseIa(
                     candidatura,

@@ -29,4 +29,7 @@ public class Candidato {
 
     @Column(name = "ESTADO", length = 2)
     private String estado;
+
+    @Column(name = "CURRICULO", length = 50)
+    private String curriculo;
 }

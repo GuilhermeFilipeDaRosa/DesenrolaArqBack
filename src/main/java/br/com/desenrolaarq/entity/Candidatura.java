@@ -43,4 +43,8 @@ public class Candidatura {
 
     @Column(name = "DATA_CANDIDATURA", nullable = false)
     private LocalDateTime dataCandidatura = LocalDateTime.now();
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "STATUS")
+    private StatusCandidatura status = StatusCandidatura.PENDENTE;
 }
